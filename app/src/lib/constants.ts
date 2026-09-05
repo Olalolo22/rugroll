@@ -1,9 +1,14 @@
 import { Connection, PublicKey } from "@solana/web3.js";
-import { EphemeralConnection } from "@magicblock-labs/ephemeral-web3.js";
 
 // ─── Endpoints ────────────────────────────────────────────────────────────────
 export const L1_RPC = "https://api.devnet.solana.com";
-export const ER_RPC = "https://devnet.magicblock.app"; // MagicBlock Ephemeral Rollup RPC
+/**
+ * MagicBlock Ephemeral Rollup RPC.
+ * The ER node speaks standard Solana JSON-RPC, so @solana/web3.js Connection
+ * works directly — no special client needed for now.
+ */
+export const ER_RPC = "https://devnet.magicblock.app";
+
 
 // ─── Program IDs ──────────────────────────────────────────────────────────────
 export const RUGROLL_PROGRAM_ID = new PublicKey(
@@ -14,15 +19,19 @@ export const RUGROLL_PROGRAM_ID = new PublicKey(
 /** Standard Solana devnet connection for L1 instructions (open_round, claim_winnings). */
 export const l1Connection = new Connection(L1_RPC, "confirmed");
 
-/** MagicBlock Ephemeral Rollup connection for high-speed in-round actions. */
-export const erConnection = new EphemeralConnection(ER_RPC);
+/** MagicBlock Ephemeral Rollup connection — ER is standard JSON-RPC compatible. */
+export const erConnection = new Connection(ER_RPC, "confirmed");
 
 // ─── PDA Helpers ──────────────────────────────────────────────────────────────
+function roundIdToBytes(roundId: bigint): Uint8Array {
+  const buf = new ArrayBuffer(8);
+  new DataView(buf).setBigUint64(0, roundId, true /* little-endian */);
+  return new Uint8Array(buf);
+}
+
 export function getRoundPDA(roundId: bigint): [PublicKey, number] {
-  const roundIdBuf = Buffer.allocUnsafe(8);
-  roundIdBuf.writeBigUInt64LE(roundId);
   return PublicKey.findProgramAddressSync(
-    [Buffer.from("round"), roundIdBuf],
+    [new TextEncoder().encode("round"), roundIdToBytes(roundId)],
     RUGROLL_PROGRAM_ID
   );
 }
@@ -31,10 +40,12 @@ export function getPositionPDA(
   roundId: bigint,
   player: PublicKey
 ): [PublicKey, number] {
-  const roundIdBuf = Buffer.allocUnsafe(8);
-  roundIdBuf.writeBigUInt64LE(roundId);
   return PublicKey.findProgramAddressSync(
-    [Buffer.from("position"), roundIdBuf, player.toBuffer()],
+    [
+      new TextEncoder().encode("position"),
+      roundIdToBytes(roundId),
+      player.toBytes(),
+    ],
     RUGROLL_PROGRAM_ID
   );
 }
