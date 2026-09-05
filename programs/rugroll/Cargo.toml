@@ -1,0 +1,27 @@
+[package]
+name = "rugroll"
+version = "0.1.0"
+description = "RugRoll: Provably-fair crash game on MagicBlock Ephemeral Rollups"
+edition = "2021"
+
+[lib]
+crate-type = ["cdylib", "lib"]
+name = "rugroll"
+
+[features]
+no-entrypoint = []
+no-idl = []
+no-log-ix-name = []
+cpi = ["no-entrypoint"]
+default = []
+
+[dependencies]
+anchor-lang = { version = "0.31.0", features = ["init-if-needed"] }
+anchor-spl = { version = "0.31.0" }
+# MagicBlock Ephemeral Rollups SDK for delegation / undelegation
+ephemeral-rollups-sdk = { version = "0.5.1", features = ["cpi"] }
+# MagicBlock VRF SDK for provably-fair crash point
+ephemeral-vrf-sdk = { version = "0.2.0" }
+
+[dev-dependencies]
+anchor-client = "0.31.0"
