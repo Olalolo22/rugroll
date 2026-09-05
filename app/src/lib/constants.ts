@@ -54,7 +54,7 @@ export function getPositionPDA(
 /** Mirror of the on-chain current_multiplier_bps function. */
 export function currentMultiplierBps(startSlot: number, currentSlot: number): number {
   const elapsed = Math.max(0, currentSlot - startSlot);
-  return Math.min(10_000 + elapsed * 2, 10_000);
+  return Math.min(10_000 + elapsed * 2, 1_000_000);
 }
 
 export function bpsToMultiplier(bps: number): string {
