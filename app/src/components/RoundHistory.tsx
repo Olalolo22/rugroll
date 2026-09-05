@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { useGame, HistoricalRound } from "@/lib/GameContext";
+import { Dices, X, ExternalLink, FlaskConical } from "lucide-react";
 
 export default function RoundHistory() {
   const { history } = useGame();
@@ -43,14 +44,16 @@ export default function RoundHistory() {
           <div className="modal-box" onClick={(e) => e.stopPropagation()}>
             <div className="modal-header">
               <div className="modal-title-row">
-                <span className="modal-icon">🎲</span>
+                <span className="modal-icon">
+                  <Dices size={20} />
+                </span>
                 <h3>Round #{selectedRound.roundId} · Provably Fair VRF Proof</h3>
               </div>
               <button
                 className="modal-close"
                 onClick={() => setSelectedRound(null)}
               >
-                ✕
+                <X size={16} />
               </button>
             </div>
 
@@ -85,7 +88,10 @@ export default function RoundHistory() {
               </div>
 
               <div className="formula-box">
-                <div className="formula-title">📐 VERIFICATION FORMULA (ANCHOR):</div>
+                <div className="formula-title">
+                  <FlaskConical size={14} style={{ display: "inline", marginRight: "6px" }} />
+                  VERIFICATION FORMULA (ANCHOR):
+                </div>
                 <pre className="formula-code">
 {`let random_u64 = u64::from_le_bytes(vrf_seed[0..8]);
 let r = random_u64 % 10000;
@@ -101,7 +107,8 @@ let crash_bps = if r == 0 { 100 } else { (9900 * 100) / (10000 - r) };
                   rel="noopener noreferrer"
                   className="modal-cta-btn"
                 >
-                  🔗 View MagicBlock VRF on Explorer
+                  <ExternalLink size={14} style={{ display: "inline", marginRight: "6px" }} />
+                  View MagicBlock VRF on Explorer
                 </a>
               </div>
             </div>

@@ -1,5 +1,7 @@
 import Link from "next/link";
 import type { Metadata } from "next";
+import { Zap, Rocket, Skull, Gamepad2, Dices, KeyRound, ShieldCheck, ExternalLink } from "lucide-react";
+
 
 export const metadata: Metadata = {
   title: "RugRoll — 10ms Provably Fair Solana Crash Game",
@@ -17,7 +19,7 @@ export default function HomePage() {
       {/* Navigation */}
       <nav className="landing-nav">
         <div className="landing-nav-logo">
-          <span className="logo-spark">⚡</span>
+          <span className="logo-spark"><Zap size={18} /></span>
           <span className="logo-bold">RUG</span>
           <span className="logo-light">ROLL</span>
         </div>
@@ -37,7 +39,7 @@ export default function HomePage() {
             MagicBlock Docs ↗
           </a>
           <Link href="/game" className="nav-cta-btn">
-            Launch Arena 🚀
+            Launch Arena <Rocket size={14} style={{ display: "inline", marginLeft: "4px" }} />
           </Link>
         </div>
       </nav>
@@ -45,7 +47,7 @@ export default function HomePage() {
       {/* Hero Section */}
       <section className="landing-hero">
         <div className="hero-badge">
-          <span className="badge-spark">💀</span>
+          <span className="badge-spark"><Skull size={16} /></span>
           <span>MAGICBLOCK BLITZ 8 · GRAVEYARD RESURRECTION</span>
         </div>
 
@@ -61,10 +63,10 @@ export default function HomePage() {
 
         <div className="hero-cta-group">
           <Link href="/game" className="btn-primary-glow">
-            🎮 PLAY LIVE ARENA NOW
+            <Gamepad2 size={18} style={{ display: "inline", marginRight: "8px" }} />PLAY LIVE ARENA NOW
           </Link>
           <a href="#graveyard" className="btn-secondary-outline">
-            💀 Why Base Solana Failed ↓
+            <Skull size={16} style={{ display: "inline", marginRight: "6px" }} />Why Base Solana Failed ↓
           </a>
         </div>
 
@@ -111,7 +113,7 @@ export default function HomePage() {
           {/* Failed Attempt on Base Solana */}
           <div className="duel-column duel-column-dead">
             <div className="column-header">
-              <span className="column-status-icon">💀</span>
+              <span className="column-status-icon"><Skull size={22} /></span>
               <h3>Base Solana L1 (6 Failed Teams)</h3>
             </div>
             <ul className="duel-points">
@@ -133,7 +135,7 @@ export default function HomePage() {
           {/* Resurrected on MagicBlock ER */}
           <div className="duel-column duel-column-alive">
             <div className="column-header">
-              <span className="column-status-icon">⚡</span>
+              <span className="column-status-icon"><Zap size={22} /></span>
               <h3>Resurrected with MagicBlock ER</h3>
             </div>
             <ul className="duel-points">
@@ -163,7 +165,7 @@ export default function HomePage() {
 
         <div className="arch-cards-grid">
           <div className="arch-card">
-            <div className="arch-icon">⚡</div>
+            <div className="arch-icon"><Zap size={26} /></div>
             <h3>Ephemeral Rollups (ER)</h3>
             <p>
               Round state accounts are delegated from Solana L1 into a 10ms MagicBlock ER runtime. Multiplier growth and bailouts execute with zero gas fees.
@@ -171,7 +173,7 @@ export default function HomePage() {
           </div>
 
           <div className="arch-card">
-            <div className="arch-icon">🎲</div>
+            <div className="arch-icon"><Dices size={26} /></div>
             <h3>MagicBlock VRF Randomness</h3>
             <p>
               Before any player deposits, a VRF request seeds the crash point on-chain. No server operator can cheat or manipulate the outcome.
@@ -179,7 +181,7 @@ export default function HomePage() {
           </div>
 
           <div className="arch-card">
-            <div className="arch-icon">🔑</div>
+            <div className="arch-icon"><KeyRound size={26} /></div>
             <h3>Session Keys Delegation</h3>
             <p>
               Players delegate an ephemeral keypair upon entering the round. Tapping &quot;BAIL OUT&quot; signs instantaneously in memory with zero Phantom popups.
@@ -187,7 +189,7 @@ export default function HomePage() {
           </div>
 
           <div className="arch-card">
-            <div className="arch-icon">🛡️</div>
+            <div className="arch-icon"><ShieldCheck size={26} /></div>
             <h3>Atomic Anchor Settlement</h3>
             <p>
               Once settled, the ER state commits a proof back to Solana L1, unlocking winner claims via standard Anchor instructions.
@@ -201,7 +203,7 @@ export default function HomePage() {
         <h2>READY TO TEST YOUR REFLEXES?</h2>
         <p>Deposit SOL, watch the multiplier skyrocket at 100 FPS, and bail out before the crash.</p>
         <Link href="/game" className="btn-primary-glow btn-huge">
-          🚀 ENTER RUGROLL ARENA
+          <Rocket size={18} style={{ display: "inline", marginRight: "8px" }} />ENTER RUGROLL ARENA
         </Link>
       </section>
 

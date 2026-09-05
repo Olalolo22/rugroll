@@ -5,6 +5,7 @@ import { useGame } from "@/lib/GameContext";
 import { useWallet } from "@solana/wallet-adapter-react";
 import { WalletButton } from "@/components/WalletButton";
 import { soundEngine } from "@/lib/audio";
+import { Zap, Loader2, Rocket, OctagonX, PartyPopper, Skull, Coins } from "lucide-react";
 
 export default function BailoutButton() {
   const {
@@ -88,7 +89,7 @@ export default function BailoutButton() {
     return (
       <div className="controls-card">
         <div className="connect-prompt">
-          <div className="connect-icon">⚡</div>
+          <div className="connect-icon"><Zap size={28} /></div>
           <div className="connect-text">
             <h3>Connect Phantom to Play</h3>
             <p>1-Click Session Keys enabled · 10ms Ephemeral Rollup execution</p>
@@ -189,10 +190,10 @@ export default function BailoutButton() {
             onClick={handleJoin}
           >
             {isLoading ? (
-              <span>⏳ Registering Session Key...</span>
+              <span><Loader2 size={16} className="icon-spin" style={{ display: "inline", marginRight: "8px" }} />Registering Session Key...</span>
             ) : isWaiting ? (
               <div className="btn-content-flex">
-                <span className="btn-icon">🚀</span>
+                <span className="btn-icon"><Rocket size={20} /></span>
                 <span className="btn-main-text">
                   JOIN ROUND #{round?.roundId ?? 1}
                 </span>
@@ -200,7 +201,7 @@ export default function BailoutButton() {
               </div>
             ) : (
               <div className="btn-content-flex">
-                <span className="btn-icon">⚡</span>
+                <span className="btn-icon"><Zap size={20} /></span>
                 <span className="btn-main-text">
                   BET FOR NEXT ROUND ({depositSol} SOL)
                 </span>
@@ -219,7 +220,7 @@ export default function BailoutButton() {
           >
             <div className="bailout-btn-grid">
               <div className="bailout-action-row">
-                <span className="bailout-title">🛑 BAIL OUT NOW</span>
+                <span className="bailout-title"><OctagonX size={18} style={{ display: "inline", marginRight: "8px" }} />BAIL OUT NOW</span>
                 <span className="bailout-multiplier">
                   {currentMultiplier.toFixed(2)}×
                 </span>
@@ -235,7 +236,7 @@ export default function BailoutButton() {
         {/* State 3: User already bailed out */}
         {myPosition && hasBailed && (
           <div className="status-banner banner-bailed">
-            <div className="banner-icon">🎉</div>
+            <div className="banner-icon"><PartyPopper size={28} /></div>
             <div className="banner-details">
               <h4>Bailed Out at {(myPosition.bailMultiplierBps / 100).toFixed(2)}×</h4>
               <p>
@@ -253,7 +254,7 @@ export default function BailoutButton() {
         {/* State 4: Round Crashed while user was in flight */}
         {myPosition && !hasBailed && isSettled && (
           <div className="status-banner banner-rugged">
-            <div className="banner-icon">💀</div>
+            <div className="banner-icon"><Skull size={28} /></div>
             <div className="banner-details">
               <h4>You Got Rugged at {crashPoint.toFixed(2)}×</h4>
               <p>Lost {(myPosition.depositLamports / 1e9).toFixed(3)} SOL. Better luck next roll!</p>
@@ -270,7 +271,7 @@ export default function BailoutButton() {
             onClick={claimWinnings}
           >
             <div className="btn-content-flex">
-              <span className="btn-icon">💰</span>
+              <span className="btn-icon"><Coins size={20} /></span>
               <span className="btn-main-text">
                 CLAIM {(
                   (myPosition.depositLamports / 1e9) *

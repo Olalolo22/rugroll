@@ -2,6 +2,17 @@
 
 import React, { useState } from "react";
 import { useGame } from "@/lib/GameContext";
+import {
+  Users,
+  Dices,
+  Zap,
+  Skull,
+  Rocket,
+  ShieldCheck,
+  CheckCircle2,
+  XCircle,
+  Clock,
+} from "lucide-react";
 
 export default function GameTabs() {
   const [activeTab, setActiveTab] = useState<"players" | "fair" | "speed">("players");
@@ -35,19 +46,22 @@ export default function GameTabs() {
           className={`tab-btn ${activeTab === "players" ? "active" : ""}`}
           onClick={() => setActiveTab("players")}
         >
-          👥 Live Bets ({positions.length})
+          <Users size={14} style={{ display: "inline", marginRight: "6px" }} />
+          Live Bets ({positions.length})
         </button>
         <button
           className={`tab-btn ${activeTab === "fair" ? "active" : ""}`}
           onClick={() => setActiveTab("fair")}
         >
-          🎲 Provably Fair
+          <Dices size={14} style={{ display: "inline", marginRight: "6px" }} />
+          Provably Fair
         </button>
         <button
           className={`tab-btn ${activeTab === "speed" ? "active" : ""}`}
           onClick={() => setActiveTab("speed")}
         >
-          ⚡ 10ms vs 400ms
+          <Zap size={14} style={{ display: "inline", marginRight: "6px" }} />
+          10ms vs 400ms
         </button>
       </div>
 
@@ -95,7 +109,10 @@ export default function GameTabs() {
                     >
                       <div className="player-meta">
                         <span className="player-avatar">
-                          {isMe ? "😎" : "👾"}
+                          {isMe
+                            ? <CheckCircle2 size={16} />
+                            : <Users size={14} />
+                          }
                         </span>
                         <span className="player-name">
                           {isMe ? "You (Connected)" : p.player}
@@ -115,9 +132,15 @@ export default function GameTabs() {
                             SOL)
                           </span>
                         ) : crashed ? (
-                          <span className="badge-rugged">💀 Rugged</span>
+                          <span className="badge-rugged">
+                            <Skull size={12} style={{ display: "inline", marginRight: "4px" }} />
+                            Rugged
+                          </span>
                         ) : (
-                          <span className="badge-in-play">🚀 In Flight</span>
+                          <span className="badge-in-play">
+                            <Rocket size={12} style={{ display: "inline", marginRight: "4px" }} />
+                            In Flight
+                          </span>
                         )}
                       </div>
                     </div>
@@ -133,7 +156,9 @@ export default function GameTabs() {
       {activeTab === "fair" && (
         <div className="tab-pane provably-fair-pane">
           <div className="fair-header">
-            <span className="fair-icon">🛡️</span>
+            <span className="fair-icon">
+              <ShieldCheck size={22} />
+            </span>
             <div>
               <h4 className="fair-title">MagicBlock VRF Provable Fairness</h4>
               <p className="fair-desc">
@@ -198,15 +223,24 @@ export default function GameTabs() {
                 onClick={runBaseTest}
                 disabled={baseLagState === "testing"}
               >
-                {baseLagState === "testing"
-                  ? "⏳ Waiting 400ms on L1..."
-                  : baseLagState === "rugged"
-                  ? "💀 RUGGED! Slot Missed (+400ms)"
-                  : "Simulate L1 Bailout"}
+                {baseLagState === "testing" ? (
+                  <>
+                    <Clock size={14} style={{ display: "inline", marginRight: "6px" }} />
+                    Waiting 400ms on L1...
+                  </>
+                ) : baseLagState === "rugged" ? (
+                  <>
+                    <Skull size={14} style={{ display: "inline", marginRight: "6px" }} />
+                    RUGGED! Slot Missed (+400ms)
+                  </>
+                ) : (
+                  "Simulate L1 Bailout"
+                )}
               </button>
               {baseLagState === "rugged" && (
                 <div className="duel-verdict verdict-bad">
-                  ❌ Multiplier crashed at 2.10× while your transaction was stuck waiting for the 400ms block!
+                  <XCircle size={14} style={{ display: "inline", marginRight: "6px" }} />
+                  Multiplier crashed at 2.10× while your transaction was stuck waiting for the 400ms block!
                 </div>
               )}
             </div>
@@ -214,7 +248,10 @@ export default function GameTabs() {
             {/* MagicBlock ER Card */}
             <div className="duel-card duel-good">
               <div className="duel-card-header">
-                <span className="duel-badge duel-badge-er">⚡ MagicBlock ER</span>
+                <span className="duel-badge duel-badge-er">
+                  <Zap size={12} style={{ display: "inline", marginRight: "4px" }} />
+                  MagicBlock ER
+                </span>
                 <span className="duel-ms text-green">~10ms sub-block</span>
               </div>
               <p className="duel-text">
@@ -225,15 +262,24 @@ export default function GameTabs() {
                 onClick={runErTest}
                 disabled={erLagState === "testing"}
               >
-                {erLagState === "testing"
-                  ? "⚡ 10ms Sub-Block..."
-                  : erLagState === "success"
-                  ? "✅ LOCKED IN! (+10ms Instant)"
-                  : "Simulate 10ms ER Bailout"}
+                {erLagState === "testing" ? (
+                  <>
+                    <Zap size={14} style={{ display: "inline", marginRight: "6px" }} />
+                    10ms Sub-Block...
+                  </>
+                ) : erLagState === "success" ? (
+                  <>
+                    <CheckCircle2 size={14} style={{ display: "inline", marginRight: "6px" }} />
+                    LOCKED IN! (+10ms Instant)
+                  </>
+                ) : (
+                  "Simulate 10ms ER Bailout"
+                )}
               </button>
               {erLagState === "success" && (
                 <div className="duel-verdict verdict-good">
-                  🚀 Multiplier secured instantly at current slot with 0ms slippage!
+                  <Rocket size={14} style={{ display: "inline", marginRight: "6px" }} />
+                  Multiplier secured instantly at current slot with 0ms slippage!
                 </div>
               )}
             </div>

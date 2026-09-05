@@ -1726,3 +1726,13 @@ button {
     display: none;
   }
 }
+
+/* Lucide icon spin animation (for Loader2) */
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+.icon-spin {
+  animation: spin 1s linear infinite;
+  vertical-align: middle;
+}

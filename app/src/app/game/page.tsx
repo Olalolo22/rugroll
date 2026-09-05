@@ -6,6 +6,7 @@ import SoundToggle from "@/components/SoundToggle";
 import { WalletButton } from "@/components/WalletButton";
 import Link from "next/link";
 import type { Metadata } from "next";
+import { Zap } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "RugRoll Arena — 10ms Solana Crash Game",
@@ -19,7 +20,7 @@ export default function GamePage() {
       <header className="game-header">
         <div className="header-left">
           <Link href="/" className="game-logo">
-            <span className="logo-glitch">⚡</span>
+            <span className="logo-glitch"><Zap size={16} /></span>
             <span className="title-rug">RUG</span>
             <span className="title-roll">ROLL</span>
           </Link>
@@ -56,7 +57,7 @@ export default function GamePage() {
       <footer className="game-footer">
         <div className="footer-content">
           <span>
-            ⚡ Built for <strong>MagicBlock Blitz 8</strong> · Resurrecting <em>Reaction Battle Royale</em> with 10ms Ephemeral Rollups
+            <Zap size={14} style={{ display: "inline", marginRight: "6px" }} />Built for <strong>MagicBlock Blitz 8</strong> · Resurrecting <em>Reaction Battle Royale</em> with 10ms Ephemeral Rollups
           </span>
           <div className="footer-links">
             <a

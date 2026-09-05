@@ -325,7 +325,7 @@ export default function RocketCanvas() {
         {isCrashed && (
           <div className="crashed-pill">
             <div className="crashed-hero-value">
-              💥 {crashMultiplier}
+              <span className="crash-icon"><span style={{ fontSize: "0.7em", opacity: 0.8 }}>&#x1F4A5;</span></span> {crashMultiplier}
               <span className="multiplier-x">×</span>
             </div>
             <div className="crashed-sub">RUGGED BY VRF</div>
