@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { useGame } from "@/lib/GameContext";
 import { useWallet } from "@solana/wallet-adapter-react";
-import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
+import { WalletButton } from "@/components/WalletButton";
 
 export default function BailoutButton() {
   const { myPosition, bailOut, joinRound, claimWinnings, round, currentMultiplierBps, isLoading } =
@@ -25,7 +25,7 @@ export default function BailoutButton() {
     return (
       <div className="connect-wrapper">
         <p className="connect-hint">Connect your wallet to play</p>
-        <WalletMultiButton className="wallet-btn" />
+        <WalletButton className="wallet-btn" />
       </div>
     );
   }

@@ -10,8 +10,6 @@ import { PhantomWalletAdapter } from "@solana/wallet-adapter-phantom";
 import { L1_RPC } from "@/lib/constants";
 import { GameProvider } from "@/lib/GameContext";
 
-require("@solana/wallet-adapter-react-ui/styles.css");
-
 export function WalletProviders({ children }: { children: React.ReactNode }) {
   const wallets = useMemo(() => [new PhantomWalletAdapter()], []);
 

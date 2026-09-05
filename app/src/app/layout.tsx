@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import "@solana/wallet-adapter-react-ui/styles.css";
 import { WalletProviders } from "@/components/WalletProviders";
 import { Toaster } from "react-hot-toast";
 

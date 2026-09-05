@@ -2,7 +2,7 @@ import MultiplierChart from "@/components/MultiplierChart";
 import MultiplierDisplay from "@/components/MultiplierDisplay";
 import BailoutButton from "@/components/BailoutButton";
 import PlayerPanel from "@/components/PlayerPanel";
-import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
+import { WalletButton } from "@/components/WalletButton";
 import Link from "next/link";
 import type { Metadata } from "next";
 
@@ -25,7 +25,7 @@ export default function GamePage() {
             <span className="er-dot" />
             ER Live · ~10ms
           </span>
-          <WalletMultiButton className="wallet-btn-sm" />
+          <WalletButton className="wallet-btn-sm" />
         </div>
       </header>
 
