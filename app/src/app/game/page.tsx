@@ -1,66 +1,77 @@
-import MultiplierChart from "@/components/MultiplierChart";
-import MultiplierDisplay from "@/components/MultiplierDisplay";
+import RocketCanvas from "@/components/RocketCanvas";
 import BailoutButton from "@/components/BailoutButton";
-import PlayerPanel from "@/components/PlayerPanel";
+import RoundHistory from "@/components/RoundHistory";
+import GameTabs from "@/components/GameTabs";
+import SoundToggle from "@/components/SoundToggle";
 import { WalletButton } from "@/components/WalletButton";
 import Link from "next/link";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "RugRoll — Live Game",
-  description: "Active crash game round. Bail out before the rug!",
+  title: "RugRoll Arena — 10ms Solana Crash Game",
+  description: "Real-time crash game on MagicBlock Ephemeral Rollups and VRF. Bail out before the rug!",
 };
 
 export default function GamePage() {
   return (
     <div className="game-layout">
-      {/* Header */}
+      {/* Top Navigation Bar */}
       <header className="game-header">
-        <Link href="/" className="game-logo">
-          <span className="title-rug">Rug</span>
-          <span className="title-roll">Roll</span>
-        </Link>
+        <div className="header-left">
+          <Link href="/" className="game-logo">
+            <span className="logo-glitch">⚡</span>
+            <span className="title-rug">RUG</span>
+            <span className="title-roll">ROLL</span>
+          </Link>
+          <div className="telemetry-pill">
+            <span className="telemetry-dot" />
+            <span className="telemetry-text">ER SUB-BLOCKS: 10ms</span>
+          </div>
+        </div>
+
         <div className="header-right">
-          <span className="er-indicator">
-            <span className="er-dot" />
-            ER Live · ~10ms
-          </span>
+          <SoundToggle />
           <WalletButton className="wallet-btn-sm" />
         </div>
       </header>
 
-      {/* Main game area */}
+      {/* Recent Round Multipliers Ticker */}
+      <RoundHistory />
+
+      {/* Main Game Arena */}
       <main className="game-main">
-        {/* Left: chart + action */}
+        {/* Left / Center: Rocket Arena + Betting Deck */}
         <section className="game-center">
-          <div className="chart-wrapper">
-            <MultiplierDisplay />
-            <MultiplierChart />
-          </div>
-          <div className="action-area">
-            <BailoutButton />
-          </div>
+          <RocketCanvas />
+          <BailoutButton />
         </section>
 
-        {/* Right: player panel */}
+        {/* Right: Live Bets, Provably Fair, and 10ms vs 400ms Speed Test */}
         <aside className="game-sidebar">
-          <PlayerPanel />
+          <GameTabs />
         </aside>
       </main>
 
-      {/* Footer */}
+      {/* Footer info banner */}
       <footer className="game-footer">
-        <span>
-          Powered by{" "}
-          <a
-            href="https://magicblock.gg"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            MagicBlock
-          </a>{" "}
-          · Blitz 8 · Graveyard Resurrection
-        </span>
+        <div className="footer-content">
+          <span>
+            ⚡ Built for <strong>MagicBlock Blitz 8</strong> · Resurrecting <em>Reaction Battle Royale</em> with 10ms Ephemeral Rollups
+          </span>
+          <div className="footer-links">
+            <a
+              href="https://magicblock.gg"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="footer-link"
+            >
+              MagicBlock Docs ↗
+            </a>
+            <Link href="/" className="footer-link">
+              About Project
+            </Link>
+          </div>
+        </div>
       </footer>
     </div>
   );
