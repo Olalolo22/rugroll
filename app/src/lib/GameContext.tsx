@@ -99,7 +99,7 @@ export function GameProvider({ children }: { children: React.ReactNode }) {
     const interval = setInterval(() => {
       setCurrentMultiplierBps((prev) => {
         // Tick +2bps every 10ms (mirrors the on-chain formula).
-        const next = Math.min(prev + 2, 10_000);
+        const next = Math.min(prev + 2, 1_000_000);
         // If we've hit a settled crash point, stop.
         if (round.crashPointBps > 0 && next >= round.crashPointBps) {
           clearInterval(interval);

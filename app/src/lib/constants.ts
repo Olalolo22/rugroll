@@ -11,8 +11,9 @@ export const ER_RPC = "https://devnet.magicblock.app";
 
 
 // ─── Program IDs ──────────────────────────────────────────────────────────────
+// Valid 32-byte Base58 fallback (SystemProgram) until actual program is deployed
 export const RUGROLL_PROGRAM_ID = new PublicKey(
-  "RugR11ABC123xyzPLACEHOLDER111111111111111111"
+  process.env.NEXT_PUBLIC_PROGRAM_ID || "11111111111111111111111111111111"
 );
 
 // ─── Connections ──────────────────────────────────────────────────────────────
