@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { useGame, HistoricalRound } from "@/lib/GameContext";
+import { RUGROLL_PROGRAM_ID } from "@/lib/constants";
 import { Dices, X, ExternalLink, FlaskConical } from "lucide-react";
 
 export default function RoundHistory() {
@@ -102,7 +103,7 @@ let crash_bps = if r == 0 { 100 } else { (9900 * 100) / (10000 - r) };
 
               <div className="modal-actions">
                 <a
-                  href={`https://explorer.solana.com/address/11111111111111111111111111111111?cluster=devnet`}
+                  href={`https://explorer.solana.com/address/${RUGROLL_PROGRAM_ID.toBase58()}?cluster=devnet`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="modal-cta-btn"

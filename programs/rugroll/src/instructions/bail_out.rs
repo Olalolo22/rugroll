@@ -28,9 +28,13 @@ pub fn current_multiplier_bps(start_slot: u64, current_slot: u64) -> u64 {
 #[derive(Accounts)]
 #[instruction(round_id: u64)]
 pub struct BailOut<'info> {
-    /// The player (or their delegated session key signer).
+    /// The signer: either the player themselves or their pre-authorized session key.
     #[account(mut)]
-    pub player: Signer<'info>,
+    pub signer: Signer<'info>,
+
+    /// The player's main wallet address.
+    /// CHECK: Validated against player_position.player below.
+    pub player: UncheckedAccount<'info>,
 
     #[account(
         mut,
@@ -45,6 +49,7 @@ pub struct BailOut<'info> {
         seeds = [b"position", round_id.to_le_bytes().as_ref(), player.key().as_ref()],
         bump = player_position.bump,
         constraint = player_position.player == player.key() @ RugRollError::InvalidPlayer,
+        constraint = (signer.key() == player.key() || signer.key() == player_position.session_key) @ RugRollError::Unauthorized,
         constraint = player_position.bail_multiplier_bps == 0 @ RugRollError::AlreadyBailedOut,
     )]
     pub player_position: Account<'info, PlayerPosition>,

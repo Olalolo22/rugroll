@@ -6,7 +6,7 @@ pub mod state;
 
 use instructions::*;
 
-declare_id!("RugR11ABC123xyzPLACEHOLDER111111111111111111");
+declare_id!("DSfJQMFV36ib2Kd4c9bSkV9M9ZWmhhVCjTb7hhtACwyS");
 
 #[program]
 pub mod rugroll {
@@ -18,14 +18,15 @@ pub mod rugroll {
         open_round::handler(ctx, round_id)
     }
 
-    /// Player deposits SOL to join the round.
+    /// Player deposits SOL to join the round and registers an ephemeral session key.
     /// Call this on the ER RPC (fast, gasless).
     pub fn join_round(
         ctx: Context<JoinRound>,
         round_id: u64,
         deposit_lamports: u64,
+        session_key: Pubkey,
     ) -> Result<()> {
-        join_round::handler(ctx, round_id, deposit_lamports)
+        join_round::handler(ctx, round_id, deposit_lamports, session_key)
     }
 
     /// Player bails out, locking their multiplier.

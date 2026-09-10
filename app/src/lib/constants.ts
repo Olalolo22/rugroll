@@ -7,13 +7,17 @@ export const L1_RPC = "https://api.devnet.solana.com";
  * The ER node speaks standard Solana JSON-RPC, so @solana/web3.js Connection
  * works directly — no special client needed for now.
  */
-export const ER_RPC = "https://devnet.magicblock.app";
+export const ER_RPC =
+  process.env.NEXT_PUBLIC_ER_RPC || "https://devnet-tee.magicblock.app";
 
+export const TEE_VALIDATOR = new PublicKey(
+  "MTEWGuqxUpYZGFJQcp8tLN7x5v9BSeoFHYWQQ3n3xzo"
+);
 
 // ─── Program IDs ──────────────────────────────────────────────────────────────
-// Valid 32-byte Base58 fallback (SystemProgram) until actual program is deployed
 export const RUGROLL_PROGRAM_ID = new PublicKey(
-  process.env.NEXT_PUBLIC_PROGRAM_ID || "11111111111111111111111111111111"
+  process.env.NEXT_PUBLIC_PROGRAM_ID ||
+    "DSfJQMFV36ib2Kd4c9bSkV9M9ZWmhhVCjTb7hhtACwyS"
 );
 
 // ─── Connections ──────────────────────────────────────────────────────────────

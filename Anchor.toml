@@ -1,16 +1,15 @@
 [toolchain]
-anchor_version = "0.31.0"
-solana_version = "2.2.0"
+anchor_version = "1.0.2"
 
 [features]
 resolution = true
 skip-lint = false
 
 [programs.devnet]
-rugroll = "RugR11ABC123xyzPLACEHOLDER111111111111111111"
+rugroll = "DSfJQMFV36ib2Kd4c9bSkV9M9ZWmhhVCjTb7hhtACwyS"
 
 [programs.localnet]
-rugroll = "RugR11ABC123xyzPLACEHOLDER111111111111111111"
+rugroll = "DSfJQMFV36ib2Kd4c9bSkV9M9ZWmhhVCjTb7hhtACwyS"
 
 [registry]
 url = "https://api.apr.dev"

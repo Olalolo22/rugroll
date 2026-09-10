@@ -31,7 +31,12 @@ pub struct JoinRound<'info> {
     pub system_program: Program<'info, System>,
 }
 
-pub fn handler(ctx: Context<JoinRound>, round_id: u64, deposit_lamports: u64) -> Result<()> {
+pub fn handler(
+    ctx: Context<JoinRound>,
+    round_id: u64,
+    deposit_lamports: u64,
+    session_key: Pubkey,
+) -> Result<()> {
     require!(
         deposit_lamports >= GameRound::MIN_DEPOSIT_LAMPORTS,
         RugRollError::DepositTooSmall
@@ -55,6 +60,7 @@ pub fn handler(ctx: Context<JoinRound>, round_id: u64, deposit_lamports: u64) ->
     let pos = &mut ctx.accounts.player_position;
     pos.round_id = round_id;
     pos.player = ctx.accounts.player.key();
+    pos.session_key = session_key;
     pos.deposit_lamports = deposit_lamports;
     pos.bail_multiplier_bps = 0; // 0 = still in
     pos.claimed = false;

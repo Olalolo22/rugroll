@@ -76,6 +76,8 @@ pub struct PlayerPosition {
     pub round_id: u64,
     /// The player's wallet address.
     pub player: Pubkey,
+    /// Ephemeral session key authorized to execute 0-popup instant bailouts.
+    pub session_key: Pubkey,
     /// Lamports deposited by this player.
     pub deposit_lamports: u64,
     /// The multiplier (in bps) at which the player bailed out.
@@ -91,6 +93,7 @@ impl PlayerPosition {
     pub const SPACE: usize = 8   // discriminator
         + 8                       // round_id
         + 32                      // player
+        + 32                      // session_key
         + 8                       // deposit_lamports
         + 8                       // bail_multiplier_bps
         + 1                       // claimed

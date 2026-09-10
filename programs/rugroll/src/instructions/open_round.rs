@@ -42,13 +42,17 @@ pub fn handler(ctx: Context<OpenRound>, round_id: u64) -> Result<()> {
     round.authority = ctx.accounts.authority.key();
     round.bump = ctx.bumps.game_round;
 
-    // Delegate the account to the MagicBlock Ephemeral Rollup.
-    // After this CPI, the ER validator owns the account for write-access;
-    // all transactions targeting `game_round` must be sent to the ER RPC.
+    pub const TEE_VALIDATOR: Pubkey = pubkey!("MTEWGuqxUpYZGFJQcp8tLN7x5v9BSeoFHYWQQ3n3xzo");
+
+    // Delegate the account to the MagicBlock TEE Ephemeral Rollup validator.
+    // After this CPI, the TEE ER validator owns the account for sub-block write access.
     ctx.accounts.delegate_game_round(
         &ctx.accounts.authority,
         &[b"round", round_id.to_le_bytes().as_ref()],
-        DelegateConfig::default(),
+        DelegateConfig {
+            validator: Some(TEE_VALIDATOR),
+            ..Default::default()
+        },
     )?;
 
     emit!(RoundOpened {

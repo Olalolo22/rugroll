@@ -16,12 +16,10 @@ cpi = ["no-entrypoint"]
 default = []
 
 [dependencies]
-anchor-lang = { version = "0.31.0", features = ["init-if-needed"] }
-anchor-spl = { version = "0.31.0" }
-# MagicBlock Ephemeral Rollups SDK for delegation / undelegation
-ephemeral-rollups-sdk = { version = "0.5.1", features = ["cpi"] }
-# MagicBlock VRF SDK for provably-fair crash point
-ephemeral-vrf-sdk = { version = "0.2.0" }
+anchor-lang = { version = "=1.0.2", features = ["init-if-needed"] }
+anchor-spl = { version = "=1.0.2" }
+ephemeral-rollups-sdk = { version = "0.16.2", features = ["anchor", "access-control"] }
+ephemeral-vrf-sdk = { version = "0.17.0", features = ["anchor"] }
 
 [dev-dependencies]
 anchor-client = "0.31.0"
