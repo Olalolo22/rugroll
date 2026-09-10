@@ -1,5 +1,6 @@
 # 💀 RugRoll — Provably Fair Crash Game on MagicBlock Ephemeral Rollups
 
+> **🌐 Live App:** [https://rugroll-nine.vercel.app](https://rugroll-nine.vercel.app) · **🎮 Live Arena:** [https://rugroll-nine.vercel.app/game](https://rugroll-nine.vercel.app/game)  
 > **MagicBlock Blitz 8 Submission** · Sep 4–11, 2026  
 > **Graveyard Resurrection:** 6 teams attempted _Reaction Battle Royale_ on base Solana and failed because 400ms latency ruined reaction timing. We resurrected it with a **10ms Ephemeral Rollup loop**, **MagicBlock VRF crash seed**, and **1-click Session Keys**.
 

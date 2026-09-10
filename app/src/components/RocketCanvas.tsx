@@ -157,8 +157,8 @@ export default function RocketCanvas() {
       ctx.globalAlpha = 1;
 
       // 3. Compute flight path based on multiplier
-      // Multiplier starts at 1.00 (bps = 10_000)
-      const progress = Math.min((currentMultiplierBps - 10_000) / 25_000, 1);
+      // Multiplier starts at 1.00 (bps = 100)
+      const progress = Math.min(Math.max(0, (currentMultiplierBps - 100) / 450), 1);
       const startX = width * 0.08;
       const startY = height * 0.88;
       const targetX = startX + (width * 0.72) * Math.min(progress * 1.3, 1);

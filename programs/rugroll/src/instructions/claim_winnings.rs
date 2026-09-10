@@ -49,12 +49,12 @@ pub fn handler(ctx: Context<ClaimWinnings>, round_id: u64) -> Result<()> {
     let round = &mut ctx.accounts.game_round;
     let pos = &mut ctx.accounts.player_position;
 
-    // Calculate payout: deposit × multiplier.
+    // Calculate payout: deposit × multiplier (100 bps = 1.00x).
     let payout = pos
         .deposit_lamports
         .checked_mul(pos.bail_multiplier_bps)
         .unwrap()
-        .checked_div(10_000)
+        .checked_div(100)
         .unwrap();
 
     // Cap payout at the pot balance (safety guard).

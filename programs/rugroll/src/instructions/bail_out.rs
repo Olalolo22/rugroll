@@ -17,8 +17,8 @@ use crate::error::RugRollError;
 pub fn current_multiplier_bps(start_slot: u64, current_slot: u64) -> u64 {
     let elapsed = current_slot.saturating_sub(start_slot);
     // Exponential approximation: M = 100 * 1.0002^elapsed (bps ×100)
-    // In integer: 10000 + elapsed * 2, capped at 10000 bps (100×).
-    let m = 10_000u64.saturating_add(elapsed.saturating_mul(2));
+    // In integer: 100 (1.00x) + elapsed * 2, capped at MAX_CRASH_BPS (100x = 10000).
+    let m = 100u64.saturating_add(elapsed.saturating_mul(2));
     m.min(GameRound::MAX_CRASH_BPS)
 }
 

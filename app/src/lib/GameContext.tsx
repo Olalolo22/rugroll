@@ -97,7 +97,7 @@ export function GameProvider({ children }: { children: React.ReactNode }) {
   ]);
 
   const [myPosition, setMyPosition] = useState<PlayerPosition | null>(null);
-  const [currentMultiplierBps, setCurrentMultiplierBps] = useState(10_000);
+  const [currentMultiplierBps, setCurrentMultiplierBps] = useState(100);
   const [history, setHistory] = useState<HistoricalRound[]>(INITIAL_HISTORY);
   const [countdown, setCountdown] = useState<number>(4);
   const [autoCashoutBps, setAutoCashoutBps] = useState<number | null>(null);
@@ -117,7 +117,7 @@ export function GameProvider({ children }: { children: React.ReactNode }) {
 
     // 1. WAITING STATE (Countdown to takeoff)
     if (round.status === "Waiting") {
-      setCurrentMultiplierBps(10_000);
+      setCurrentMultiplierBps(100);
       let count = 4;
       setCountdown(count);
 
@@ -153,10 +153,10 @@ export function GameProvider({ children }: { children: React.ReactNode }) {
       const startTime = Date.now();
 
       const liveInterval = setInterval(() => {
-        const elapsedMs = Date.now() - startTime;
-        // Exponential growth curve: ~10ms slot frequency
-        const growth = Math.floor(Math.pow(elapsedMs / 1000, 1.35) * 65);
-        const nextBps = 10_000 + growth;
+        const elapsedSec = (Date.now() - startTime) / 1000;
+        // Exponential growth curve: 1.00x -> 1.50x at 5s -> 2.50x at 10s -> 5.00x at 18s
+        const multiplier = Math.floor(100 * Math.exp(0.065 * elapsedSec + 0.002 * elapsedSec * elapsedSec));
+        const nextBps = Math.max(100, multiplier);
 
         // Check if Auto-Cashout threshold is met
         if (

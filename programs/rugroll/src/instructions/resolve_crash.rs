@@ -38,14 +38,15 @@ pub fn handler(ctx: Context<ResolveCrash>, round_id: u64, random_bytes: [u8; 32]
     // crash_bps = floor( (10000 * 97) / (raw % 10000 + 1) )
     // Ensures minimum crash at MIN_CRASH_BPS and house edge of ~3%.
     let modulo = (raw % 10_000) + 1; // 1..=10000
-    let crash_point_bps = ((10_000u64 * (10_000 - GameRound::HOUSE_EDGE_BPS)) / modulo)
+    // crash_bps = floor( (100 * 9700) / modulo ) mapped to [MIN_CRASH_BPS, MAX_CRASH_BPS]
+    let crash_point_bps = ((100u64 * (10_000 - GameRound::HOUSE_EDGE_BPS)) / modulo)
         .clamp(GameRound::MIN_CRASH_BPS, GameRound::MAX_CRASH_BPS);
 
     round.crash_point_bps = crash_point_bps;
     round.status = RoundStatus::Settled;
 
     // Record the crash slot so the frontend can reconstruct exactly when it happened.
-    let crash_slot = round.start_slot + (crash_point_bps - 10_000) / 2;
+    let crash_slot = round.start_slot + (crash_point_bps.saturating_sub(100)) / 2;
 
     emit!(RoundCrashed {
         round_id,
